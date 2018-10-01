@@ -2,6 +2,18 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var ReactDom = require('react-dom');
 
+var TodoItem = createReactClass({
+  render:function(){
+    return(
+      <li>
+        <div className="todo-item">
+          <span className="item-name">{this.props.item}</span>
+        </div>
+      </li>
+    );
+  }
+});
+
 var TodoComponent = createReactClass({
   getInitialState: function(){
     return {
@@ -21,7 +33,7 @@ var TodoComponent = createReactClass({
     var todos = this.state.todos;
     todos = todos.map(function(item, index){
       return (
-        <li>{item}</li>
+        <TodoItem item={item} key={index}/>
       )
     })
 
