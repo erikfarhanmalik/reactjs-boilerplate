@@ -3,17 +3,12 @@ var createReactClass = require('create-react-class');
 var ReactDom = require('react-dom');
 
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+import TodoComponent from './component/TodoComponent';
+import AboutComponent from './component/AboutComponent';
 
-var TodoComponent = require('./component/TodoComponent');
-var AboutComponent = require('./component/AboutComponent');
+class App extends React.Component {
 
-var App = createReactClass({
-
-  render: function() {
-    var todo = function() {
-      return (<TodoComponent label="My Great Todo List"/>);
-    }
-
+  render() {
     return (<BrowserRouter>
       <div>
         <nav>
@@ -21,13 +16,13 @@ var App = createReactClass({
           <Link to="/about">About</Link>
         </nav>
         <Switch>
-          <Route exact={true} path={'/'} component={todo}></Route>
+          <Route exact={true} path={'/'} component={() => (<TodoComponent label="My Great Todo List"/>)}></Route>
           <Route path={'/about'} component={AboutComponent}></Route>
         </Switch>
       </div>
     </BrowserRouter>);
   }
 
-});
+};
 
 ReactDom.render(<App/>, document.getElementById('app'));

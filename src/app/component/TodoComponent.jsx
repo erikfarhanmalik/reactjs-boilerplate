@@ -1,48 +1,52 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var TodoItem = require('./TodoItem');
-var TodoForm = require('./TodoForm');
+import TodoItem from './TodoItem';
+import TodoForm from './TodoForm';
 
 require('../css/todo-component.css');
 
-var TodoComponent = createReactClass({
+class TodoComponent extends React.Component {
 
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       todos: ['sleep', 'read', 'watch']
     };
-  },
 
-  onDelete: function(item) {
+    this.onDelete = this.onDelete.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+  }
+
+  onDelete(item) {
     var updatedTodos = this.state.todos.filter(function(val, index) {
       return item !== val;
     });
     this.setState({todos: updatedTodos});
-  },
+  }
 
-  onAdd: function(item) {
+  onAdd(item) {
     var updatedTodos = this.state.todos;
     updatedTodos.push(item);
     this.setState({todos: updatedTodos});
-  },
+  }
 
   //sample of lifecycle functions
-  componentWillMount: function() {
+  componentWillMount() {
     console.log('component will mount');
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     console.log('component did mount');
     // good place to do some ajax request
-  },
+  }
 
-  componentWillUpdate: function() {
+  componentWillUpdate() {
     console.log('component will update');
-  },
+  }
   //end sample of lifecycle functions
 
-  render: function() {
+  render() {
     var todos = this.state.todos;
     todos = todos.map(function(item, index) {
       return (<TodoItem item={item} key={index} onDelete={this.onDelete}/>);
@@ -55,6 +59,6 @@ var TodoComponent = createReactClass({
     </div>)
   }
 
-});
+};
 
-module.exports = TodoComponent;
+export default TodoComponent;

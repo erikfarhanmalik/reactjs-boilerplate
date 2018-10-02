@@ -1,23 +1,27 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
-
 require('../css/todo-form.css')
 
-var TodoForm = createReactClass({
+class TodoForm extends React.Component {
 
-  handleSubmit: function(event) {
+  constructor(props) {
+    super(props);
+    this.newItemInputText = React.createRef();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
     event.preventDefault();
-    var newItem = this.refs.newItem;
-    this.props.onAdd(newItem.value);
-  },
+    this.props.onAdd(this.newItemInputText.current.value);
+    this.newItemInputText.current.value = '';
+  }
 
-  render: function() {
+  render () {
     return (<form id="add-todo" onSubmit={this.handleSubmit}>
-      <input type="text" required="required" ref="newItem"/>
+      <input type="text" required="required" ref={this.newItemInputText}/>
       <input type="submit" value="Add Todo"/>
     </form>);
   }
 
-});
+};
 
-module.exports = TodoForm;
+export default TodoForm;

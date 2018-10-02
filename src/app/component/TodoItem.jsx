@@ -3,18 +3,26 @@ var createReactClass = require('create-react-class');
 
 require('../css/todo-item.css');
 
-var TodoItem = createReactClass({
-  handleDelete: function() {
+class TodoItem extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(event) {
     this.props.onDelete(this.props.item);
-  },
-  render: function() {
+  }
+
+  render() {
     return (<li>
       <div className="todo-item">
         <span className="item-name">{this.props.item}</span>
-        <span className="item-remove" onClick={this.handleDelete}>x</span>
+        <span className="item-remove" onClick={this.handleDelete}> x </span>
       </div>
     </li>);
   }
-});
 
-module.exports = TodoItem;
+}
+
+export default TodoItem;
