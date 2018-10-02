@@ -1,17 +1,16 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/app/index.js',
+  entry: './src/app/index.jsx',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
-      },
-      {
+      }, {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -23,11 +22,10 @@ module.exports = {
     publicPath: '/app/',
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    historyApiFallback: true
   }
 };
