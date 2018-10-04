@@ -1,5 +1,12 @@
 var React = require('react');
-require('../css/todo-form.css')
+require('../css/todo-form.css');
+
+import axios from 'axios';
+import {connect} from 'react-redux';
+
+import {addTodo} from '../action/TodoActions';
+
+var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
 
 class TodoForm extends React.Component {
 
@@ -11,11 +18,15 @@ class TodoForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onAdd(this.newItemInputText.current.value);
-    this.newItemInputText.current.value = '';
+    api.post("/", {content: this.newItemInputText.current.value}).then(function(response) {
+      this.props.handleSubmit(response.data);
+      this.newItemInputText.current.value = '';
+    }.bind(this)).catch(function(error) {
+      console.log(error);
+    });
   }
 
-  render () {
+  render() {
     return (<form id="add-todo" onSubmit={this.handleSubmit}>
       <input type="text" required="required" ref={this.newItemInputText}/>
       <input type="submit" value="Add Todo"/>
@@ -24,4 +35,8 @@ class TodoForm extends React.Component {
 
 };
 
-export default TodoForm;
+const bindActionToPeroperty = (dispatch) => ({
+  handleSubmit: (todo) => dispatch(addTodo(todo))
+});
+
+export default connect((state) => ({}), bindActionToPeroperty)(TodoForm);

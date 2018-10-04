@@ -2,6 +2,13 @@ var React = require('react');
 require('../css/todo-item.css');
 import ReactTooltip from 'react-tooltip'
 
+import axios from 'axios';
+import {connect} from 'react-redux';
+
+import {deleteTodo} from '../action/TodoActions';
+
+var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
+
 class TodoItem extends React.Component {
 
   constructor(props) {
@@ -10,7 +17,12 @@ class TodoItem extends React.Component {
   }
 
   handleDelete(event) {
-    this.props.onDelete(this.props.item);
+
+    api.delete(this.props.item._links.self.href).then(function(response) {
+      this.props.handleDelete(this.props.item);
+    }.bind(this)).catch(function(error) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -27,4 +39,8 @@ class TodoItem extends React.Component {
 
 }
 
-export default TodoItem;
+const bindActionToPeroperty = (dispatch) => ({
+  handleDelete: (item) => dispatch(deleteTodo(item))
+});
+
+export default connect((state) => ({}), bindActionToPeroperty)(TodoItem);
