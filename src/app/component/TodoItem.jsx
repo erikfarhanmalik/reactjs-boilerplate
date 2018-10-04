@@ -1,7 +1,6 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
-
 require('../css/todo-item.css');
+import ReactTooltip from 'react-tooltip'
 
 class TodoItem extends React.Component {
 
@@ -17,8 +16,11 @@ class TodoItem extends React.Component {
   render() {
     return (<li>
       <div className="todo-item">
-        <span className="item-name">{this.props.item}</span>
-        <span className="item-remove" onClick={this.handleDelete}> x </span>
+        <span className="item-name">{this.props.item.content}</span>
+        <span className="item-remove" onClick={this.handleDelete}>
+          <span data-tip="Delete todo"> x </span>
+        </span>
+        <ReactTooltip place="left" type="error" effect="solid"/>
       </div>
     </li>);
   }
