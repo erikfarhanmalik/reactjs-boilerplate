@@ -47,13 +47,7 @@ class TodoComponent extends React.Component {
 
 const bindStateToProperty = (state) => ({todos: state.todos});
 const bindActionToPeroperty = (dispatch) => ({
-  fetchTodo: () => {
-    api.get().then(function(response) {
-      dispatch(fetchTodo(response.data._embedded.todo));
-    }.bind(this)).catch(function(error) {
-      console.log(error);
-    });
-  }
+  fetchTodo: () => dispatch(fetchTodo())
 });
 
 export default connect(bindStateToProperty, bindActionToPeroperty)(TodoComponent);

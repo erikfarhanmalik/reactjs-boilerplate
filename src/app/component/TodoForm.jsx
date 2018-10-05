@@ -31,13 +31,14 @@ class TodoForm extends React.Component {
 };
 
 const bindActionToPeroperty = (dispatch) => ({
-  handleSubmit: (content) => {
-    api.post("/", {content: content}).then(function(response) {
-      dispatch(addTodo(response.data))
-    }.bind(this)).catch(function(error) {
-      console.log(error);
-    });
-  }
+  handleSubmit: (content) => dispatch(addTodo(content))
+  // {
+  //   api.post("/", {content: content}).then(function(response) {
+  //     dispatch(addTodo(response.data))
+  //   }.bind(this)).catch(function(error) {
+  //     console.log(error);
+  //   });
+  // }
 });
 
 export default connect((state) => ({}), bindActionToPeroperty)(TodoForm);
