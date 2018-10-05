@@ -1,13 +1,12 @@
-var React = require('react');
-require('../css/todo-form.css');
-
+import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 
 import {addTodo} from '../action/TodoActions';
 
-var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
+import '../css/todo-form.css';
 
+var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
 class TodoForm extends React.Component {
 
   constructor(props) {

@@ -1,14 +1,13 @@
-var React = require('react');
-require('../css/todo-item.css');
+import React from 'react';
 import ReactTooltip from 'react-tooltip'
-
 import axios from 'axios';
 import {connect} from 'react-redux';
 
 import {deleteTodo} from '../action/TodoActions';
 
-var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
+import '../css/todo-item.css';
 
+var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
 class TodoItem extends React.Component {
 
   constructor(props) {

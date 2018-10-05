@@ -1,18 +1,14 @@
-var React = require('react');
-var createReactClass = require('create-react-class');
-
+import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
-
 import {fetchTodo} from '../action/TodoActions';
 
-require('../css/todo-component.css');
+import '../css/todo-component.css';
 
 var api = axios.create({baseURL: 'http://localhost:8000/todo', timeout: 1000});
-
 class TodoComponent extends React.Component {
 
   constructor(props) {

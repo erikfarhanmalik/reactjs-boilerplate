@@ -1,7 +1,5 @@
-var React = require('react');
-var createReactClass = require('create-react-class');
-var ReactDom = require('react-dom');
-
+import React from 'react';
+import ReactDom from 'react-dom';
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
