@@ -17,12 +17,8 @@ class TodoForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    api.post("/", {content: this.newItemInputText.current.value}).then(function(response) {
-      this.props.handleSubmit(response.data);
-      this.newItemInputText.current.value = '';
-    }.bind(this)).catch(function(error) {
-      console.log(error);
-    });
+    this.props.handleSubmit(this.newItemInputText.current.value);
+    this.newItemInputText.current.value = '';
   }
 
   render() {
@@ -35,7 +31,13 @@ class TodoForm extends React.Component {
 };
 
 const bindActionToPeroperty = (dispatch) => ({
-  handleSubmit: (todo) => dispatch(addTodo(todo))
+  handleSubmit: (content) => {
+    api.post("/", {content: content}).then(function(response) {
+      dispatch(addTodo(response.data))
+    }.bind(this)).catch(function(error) {
+      console.log(error);
+    });
+  }
 });
 
 export default connect((state) => ({}), bindActionToPeroperty)(TodoForm);

@@ -16,12 +16,7 @@ class TodoItem extends React.Component {
   }
 
   handleDelete(event) {
-
-    api.delete(this.props.item._links.self.href).then(function(response) {
-      this.props.handleDelete(this.props.item);
-    }.bind(this)).catch(function(error) {
-      console.log(error);
-    });
+    this.props.handleDelete(this.props.item);
   }
 
   render() {
@@ -39,7 +34,13 @@ class TodoItem extends React.Component {
 }
 
 const bindActionToPeroperty = (dispatch) => ({
-  handleDelete: (item) => dispatch(deleteTodo(item))
+  handleDelete: (item) => {
+    api.delete(item._links.self.href).then(function(response) {
+      dispatch(deleteTodo(item));
+    }.bind(this)).catch(function(error) {
+      console.log(error);
+    });
+  }
 });
 
 export default connect((state) => ({}), bindActionToPeroperty)(TodoItem);

@@ -22,11 +22,7 @@ class TodoComponent extends React.Component {
 
   componentDidMount() {
     // good place to do some ajax request
-    api.get().then(function(response) {
-      this.props.fetchTodo(response.data._embedded.todo);
-    }.bind(this)).catch(function(error) {
-      console.log(error);
-    });
+    this.props.fetchTodo();
   }
 
   componentWillUpdate() {
@@ -51,7 +47,13 @@ class TodoComponent extends React.Component {
 
 const bindStateToProperty = (state) => ({todos: state.todos});
 const bindActionToPeroperty = (dispatch) => ({
-  fetchTodo: (todos) => dispatch(fetchTodo(todos))
+  fetchTodo: () => {
+    api.get().then(function(response) {
+      dispatch(fetchTodo(response.data._embedded.todo));
+    }.bind(this)).catch(function(error) {
+      console.log(error);
+    });
+  }
 });
 
 export default connect(bindStateToProperty, bindActionToPeroperty)(TodoComponent);
