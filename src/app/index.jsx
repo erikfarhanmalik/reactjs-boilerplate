@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 
@@ -9,7 +9,8 @@ import {reducers} from './reducer/reducers';
 import TodoComponent from './component/TodoComponent';
 import AboutComponent from './component/AboutComponent';
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, {todos:[], hideDoneTodo:true}, composeEnhancers(applyMiddleware(thunk)));
 
 class App extends React.Component {
 

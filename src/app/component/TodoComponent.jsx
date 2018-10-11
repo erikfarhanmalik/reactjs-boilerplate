@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
-import {fetchTodo} from '../action/TodoActions';
+import {fetchTodo, toogleHideDoneTodo} from '../action/TodoActions';
 
 import '../css/todo-component.css';
 
@@ -31,13 +31,20 @@ class TodoComponent extends React.Component {
   //end sample of lifecycle functions
 
   render() {
-    var todos = this.props.todos;
-    todos = todos.map(function(item, index) {
-      return (<TodoItem item={item} key={index} onDelete={this.onDelete}/>);
+
+    var hideDoneTodo = this.props.hideDoneTodo;
+    var todos = this.props.todos.filter((item, index) => !hideDoneTodo || item.status !== 'DONE').map(function(item, index) {
+      return <TodoItem item={item} key={index}/>
     }.bind(this));
 
     return (<div id="todo-list">
       <p>{this.props.label}</p>
+      <br/>
+      <span className='toggle-hide-done-button' onClick={this.props.toogleHideDoneTodo}>{
+          this.props.hideDoneTodo
+            ? 'Show Done'
+            : 'Hide Done'
+        }</span>
       <ul>{todos}</ul>
       <TodoForm onAdd={this.onAdd}/>
     </div>)
@@ -45,9 +52,10 @@ class TodoComponent extends React.Component {
 
 };
 
-const bindStateToProperty = (state) => ({todos: state.todos});
+const bindStateToProperty = (state) => ({todos: state.todos, hideDoneTodo: state.hideDoneTodo});
 const bindActionToPeroperty = (dispatch) => ({
-  fetchTodo: () => dispatch(fetchTodo())
+  fetchTodo: () => dispatch(fetchTodo()),
+  toogleHideDoneTodo: () => dispatch(toogleHideDoneTodo())
 });
 
 export default connect(bindStateToProperty, bindActionToPeroperty)(TodoComponent);
