@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {FaToggleOn, FaToggleOff} from 'react-icons/fa';
 
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
@@ -42,9 +43,10 @@ class TodoComponent extends React.Component {
       <br/>
       <span className='toggle-hide-done-button' onClick={this.props.toogleHideDoneTodo}>{
           this.props.hideDoneTodo
-            ? 'Show Done'
-            : 'Hide Done'
+            ? <FaToggleOn/>
+            : <FaToggleOff/>
         }</span>
+        <span className='toggle-info'>{ this.props.hideDoneTodo ? 'Done is hidden' : 'Done is shown'}</span>
       <ul>{todos}</ul>
       <TodoForm onAdd={this.onAdd}/>
     </div>)
