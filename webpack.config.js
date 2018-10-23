@@ -18,13 +18,13 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   output: {
-    path: __dirname + '/app/dist',
-    publicPath: '/app/',
+    path: __dirname + '/dist',
+    publicPath: '/dist/',
     filename: 'bundle.js'
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
-    contentBase: './dist',
+    contentBase: './src',
     hot: true,
     historyApiFallback: true
   }
